@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version "1.3.72"
     id("io.gitlab.arturbosch.detekt").version("1.9.1")
     id("org.jetbrains.dokka") version "0.10.1"
+    jacoco
 }
 
 group = "org.grigoryfedorov"
@@ -22,6 +23,19 @@ detekt {
     }
 }
 
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = false
+        csv.isEnabled = false
+        html.destination = file("${buildDir}/jacocoHtml")
+    }
+}
+
 tasks.dokka {
     outputFormat = "html"
     outputDirectory = "$buildDir/javadoc"
@@ -29,6 +43,13 @@ tasks.dokka {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
 }
 
 dependencies {

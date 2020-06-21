@@ -4,4 +4,7 @@ jdk:
   - oraclejdk11
 
 script:
-  - ./gradlew test build
+  - ./gradlew build dokka
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t 409e6609-7bc0-43eb-8ca1-db2357bc0c03
