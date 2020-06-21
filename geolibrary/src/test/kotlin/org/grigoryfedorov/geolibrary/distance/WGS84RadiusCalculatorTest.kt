@@ -21,7 +21,7 @@ internal class WGS84RadiusCalculatorTest : ShouldSpec({
             row(45.0,  r45),
             row(-45.0, r45)
         ) { latitude, radius ->
-            radiusCalculator.getRadius(latitude) shouldBe(radius plusOrMinus(0.5))
+            radiusCalculator.getRadius(latitude) shouldBe(radius plusOrMinus 0.5)
         }
     }
 }
