@@ -7,4 +7,5 @@ script:
   - ./gradlew build dokka
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -t 409e6609-7bc0-43eb-8ca1-db2357bc0c03
+  # CODECOV_TOKEN is set as environmental variable in travis
+  - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
