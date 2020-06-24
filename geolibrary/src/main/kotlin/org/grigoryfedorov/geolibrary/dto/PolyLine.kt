@@ -1,5 +1,9 @@
 package org.grigoryfedorov.geolibrary.dto
 
+import org.grigoryfedorov.geolibrary.Distance
+import org.grigoryfedorov.geolibrary.PointTranslator
+import org.grigoryfedorov.geolibrary.distance.PointOnLineFinder
+
 /**
  * Represents a segmented line between 2 or more Points
  * Constructed from an ordered collection of 2 or more Points.
@@ -10,6 +14,39 @@ package org.grigoryfedorov.geolibrary.dto
 class PolyLine internal constructor(
     val points: Collection<Point>
 ) {
+
+    fun toLines(): List<Line> {
+        return points.zipWithNext { point1, point2 ->
+            Line(point1, point2)
+        }
+    }
+
+    fun getLocationByDistance(
+        distance: Distance,
+        pointInLineFinder: PointOnLineFinder
+    ): Point? {
+        var distanceLeft = distance
+        var resultPoint: Point? = null
+        for (line in this.toLines()) {
+            resultPoint = pointInLineFinder.findPointOnLineByDistance(line, distanceLeft)
+            if (resultPoint != null) {
+                break
+            } else {
+                distanceLeft -= distance
+            }
+        }
+
+        return resultPoint
+    }
+
+
+    fun translate(vector: Vector, pointTranslator: PointTranslator): PolyLine {
+        return PolyLine(
+            points = points.map {
+                it.translate(vector, pointTranslator)
+            }
+        )
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

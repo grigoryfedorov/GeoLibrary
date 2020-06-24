@@ -1,6 +1,7 @@
 package org.grigoryfedorov.geolibrary.dto
 
 import org.grigoryfedorov.geolibrary.Angle
+import org.grigoryfedorov.geolibrary.PointTranslator
 import org.grigoryfedorov.geolibrary.Radius
 
 /**
@@ -17,6 +18,10 @@ class Point internal constructor(
     val longitude: Angle,
     val elevation: Radius
 ) {
+
+    fun translate(vector: Vector, pointTranslator: PointTranslator): Point {
+        return pointTranslator.translate(this, vector)
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

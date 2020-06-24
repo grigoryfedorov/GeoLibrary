@@ -11,13 +11,9 @@ import org.grigoryfedorov.geolibrary.dto.Vector
 internal class PointTranslatorTest : ShouldSpec({
 
     fun checkTranslationCalculation(point: Point, vector: Vector, expected: Point) {
-
         val pointTranslator = PointTranslator(LatitudeNormalizer(), LongitudeNormalizer())
         val translated = pointTranslator.translate(point, vector)
-
-        translated.latitude shouldBe(expected.latitude plusOrMinus ANGLE_EQUAL_ACCURACY)
-        translated.longitude shouldBe(expected.longitude plusOrMinus ANGLE_EQUAL_ACCURACY)
-        translated.elevation shouldBe(expected.elevation plusOrMinus ELEVATION_EQUAL_ACCURACY)
+        translated.shouldBe(expected)
     }
 
     should("calculate translation correctly") {

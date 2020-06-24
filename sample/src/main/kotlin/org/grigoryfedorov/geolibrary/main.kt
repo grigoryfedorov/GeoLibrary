@@ -1,9 +1,6 @@
 import org.grigoryfedorov.geolibrary.DEFAULT_DISTANCE_CALCULATOR
 import org.grigoryfedorov.geolibrary.DEFAULT_POINT_ON_LINE_FINDER
 import org.grigoryfedorov.geolibrary.GeoLibrary
-import org.grigoryfedorov.geolibrary.extentions.getLocationByDistance
-import org.grigoryfedorov.geolibrary.extentions.length
-import org.grigoryfedorov.geolibrary.extentions.toLines
 
 
 /**
@@ -25,7 +22,7 @@ fun main(args: Array<String>) {
         println("Length ${line.length(DEFAULT_DISTANCE_CALCULATOR)} for line $line")
     }
 
-    val locationByDistance = polyLine.getLocationByDistance(DEFAULT_POINT_ON_LINE_FINDER, 100.0)
+    val locationByDistance = polyLine.getLocationByDistance(100.0, DEFAULT_POINT_ON_LINE_FINDER)
 
     println("locationByDistance $locationByDistance for polyline $polyLine")
 

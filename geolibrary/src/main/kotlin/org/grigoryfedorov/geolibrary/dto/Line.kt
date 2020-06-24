@@ -1,5 +1,9 @@
 package org.grigoryfedorov.geolibrary.dto
 
+import org.grigoryfedorov.geolibrary.Distance
+import org.grigoryfedorov.geolibrary.PointTranslator
+import org.grigoryfedorov.geolibrary.distance.DistanceCalculator
+
 /**
  * Represents a straight line between 2 Points
  * Constructed from any 2 Points.
@@ -14,6 +18,17 @@ class Line internal constructor(
     val point1: Point,
     val point2: Point
 ) {
+
+    fun length(distanceCalculator: DistanceCalculator): Distance {
+        return distanceCalculator.calculateDistance(point1, point2)
+    }
+
+    fun translate(vector: Vector, pointTranslator: PointTranslator): Line {
+        return Line(
+            point1 = point1.translate(vector, pointTranslator),
+            point2 = point2.translate(vector, pointTranslator)
+        )
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
