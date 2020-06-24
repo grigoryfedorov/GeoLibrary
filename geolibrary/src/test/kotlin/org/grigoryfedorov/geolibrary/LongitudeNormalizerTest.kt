@@ -9,7 +9,7 @@ import io.kotest.matchers.shouldBe
 internal class LongitudeNormalizerTestShouldSpec : ShouldSpec({
     fun checkNormalization(longitude: Double, expected: Double) {
         val longitudeNormalizer = LongitudeNormalizer()
-        val normalizedLongitude = longitudeNormalizer.normalizeLongitude(longitude)
+        val normalizedLongitude = longitudeNormalizer.normalizeLongitude(longitude, needFlip = false)
         normalizedLongitude shouldBe (expected plusOrMinus 0.000001)
     }
 

@@ -1,6 +1,8 @@
 package org.grigoryfedorov.geolibrary.extentions
 
+import org.grigoryfedorov.geolibrary.LatitudeNormalizer
 import org.grigoryfedorov.geolibrary.LongitudeNormalizer
+import org.grigoryfedorov.geolibrary.PointTranslator
 import org.grigoryfedorov.geolibrary.dto.Line
 import org.grigoryfedorov.geolibrary.dto.Point
 import org.grigoryfedorov.geolibrary.dto.PolyLine
@@ -9,14 +11,8 @@ import org.grigoryfedorov.geolibrary.dto.Vector
 
 
 fun Point.translate(vector: Vector): Point {
-    val longitudeNormalizer = LongitudeNormalizer()
-    val normalizedLongitude = longitudeNormalizer.normalizeLongitude(longitude + vector.eastbound)
-
-    return Point(
-            latitude = latitude + vector.northbound,
-            longitude = normalizedLongitude,
-            elevation = elevation + vector.elevationBound
-    )
+    val pointTranslator = PointTranslator(LatitudeNormalizer(), LongitudeNormalizer())
+    return pointTranslator.translate(this, vector)
 }
 
 fun Line.translate(vector: Vector): Line {

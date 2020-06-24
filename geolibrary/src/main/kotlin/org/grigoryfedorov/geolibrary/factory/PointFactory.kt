@@ -33,7 +33,7 @@ class PointFactory(
                     "[$LATITUDE_SOUTH_BOUND, $LATITUDE_NORTH_BOUND] (both inclusive). Got $latitude")
         }
 
-        val normalizedLongitude = longitudeNormalizer.normalizeLongitude(longitude)
+        val normalizedLongitude = longitudeNormalizer.normalizeLongitude(longitude, needFlip = false)
 
         return Point(
             latitude = latitude,
