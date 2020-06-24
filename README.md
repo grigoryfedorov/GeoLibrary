@@ -23,3 +23,7 @@ Project outputs and reports:
 See also:
 * Travis CI [builds](https://travis-ci.com/github/grigoryfedorov/GeoLibrary) - every push is built and tests run
 * Codefactor code review [reports](https://www.codefactor.io/repository/github/grigoryfedorov/geolibrary)
+
+# Sample
+
+Check [sample](https://github.com/grigoryfedorov/GeoLibrary/blob/master/sample/src/main/kotlin/org/grigoryfedorov/geolibrary/main.kt) for examples of GeoLibrary usage. 
