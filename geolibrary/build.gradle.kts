@@ -28,14 +28,6 @@ jacoco {
     reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
-tasks.jacocoTestReport {
-    reports {
-        xml.isEnabled = true
-        csv.isEnabled = false
-        html.destination = file("${buildDir}/jacocoHtml")
-    }
-}
-
 tasks.dokka {
     outputFormat = "html"
     outputDirectory = "$buildDir/javadoc"
@@ -48,7 +40,13 @@ tasks.withType<Test> {
 tasks.test {
     finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
+
 tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+        csv.isEnabled = false
+        html.destination = file("${buildDir}/jacocoHtml")
+    }
     dependsOn(tasks.test) // tests are required to run before generating the report
 }
 

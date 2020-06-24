@@ -23,8 +23,8 @@ class ContainedInRectangleCalculator {
         val isInLongitude = if (east > west) {
             point.longitude in west..east
         } else {
-            point.longitude in west..LONGITUDE_WEST_BOUND
-                    || point.longitude in east..LONGITUDE_EAST_BOUND
+            point.longitude in west..LONGITUDE_EAST_BOUND
+                    || point.longitude in LONGITUDE_WEST_BOUND..east
         }
 
         return isInLatitude && isInLongitude
