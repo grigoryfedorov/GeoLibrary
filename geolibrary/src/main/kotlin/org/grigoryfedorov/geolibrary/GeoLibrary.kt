@@ -4,6 +4,7 @@ import org.grigoryfedorov.geolibrary.factory.LineFactory
 import org.grigoryfedorov.geolibrary.factory.PointFactory
 import org.grigoryfedorov.geolibrary.factory.PolyLineFactory
 import org.grigoryfedorov.geolibrary.factory.RectangleFactory
+import org.grigoryfedorov.geolibrary.factory.VectorFactory
 
 /**
  * Main library class, creates factories.
@@ -28,5 +29,9 @@ class GeoLibrary(
 
     fun createRectangleFactory(): RectangleFactory {
         return RectangleFactory(latitudeSpanCalculator, longitudeSpanCalculator)
+    }
+
+    fun createVectorFactory(): VectorFactory {
+        return VectorFactory()
     }
 }

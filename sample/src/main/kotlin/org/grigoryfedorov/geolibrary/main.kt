@@ -12,6 +12,7 @@ fun main() {
     val lineFactory = geoLibrary.createLineFactory()
     val polyLineFactory = geoLibrary.createPolyLineFactory()
     val rectangleFactory = geoLibrary.createRectangleFactory()
+    val vectorFactory = geoLibrary.createVectorFactory()
 
     val point1 = pointFactory.createPoint(51.0, 61.0, 10.0)
     val point2 = pointFactory.createPoint(52.0, 62.0, 20.0)
@@ -43,6 +44,18 @@ fun main() {
     val contains = rectangle.contains(point2)
 
     println("rectangle contains $contains point $point2 $rectangle")
+
+    val vector = vectorFactory.createVector(10.0, 20.0, 30.0)
+
+    val translatedPoint1 = point1.translate(vector)
+    val translatedLine12 = line12.translate(vector)
+    val translatedRectangle = rectangle.translate(vector)
+    val translatedPolyLine = polyLine.translate(vector)
+
+    println("Point1 $point1 translated by $vector is $translatedPoint1")
+    println("Point1 $line12 translated by $vector is $translatedLine12")
+    println("Point1 $rectangle translated by $vector is $translatedRectangle")
+    println("Point1 $polyLine translated by $vector is $translatedPolyLine")
 
     println("GeoLibrary sample finish.")
 

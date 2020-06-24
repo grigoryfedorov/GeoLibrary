@@ -12,37 +12,6 @@ import kotlin.math.sqrt
  */
 class SimpleStraitLineCalculator : DistanceCalculator, PointOnLineFinder {
     override fun calculateDistance(point1: Point, point2: Point): Distance {
-        //        distance = sqrt(dx * dx + dy * dy)
-//
-//        with distance: Distance in kilometer (km)
-//        dx = 71.5 * (lon1 - lon2)
-//        dy = 111.3 * (lat1 - lat2)
-//        lat1, lat2, lon1, lon2: Latitude, Longitude in degrees
-
-//        distance = sqrt(dx * dx + dy * dy)
-//
-//        with distance: Distance in km
-//                dx = 111.3 * cos(lat) * (lon1 - lon2)
-//        lat = (lat1 + lat2) / 2 * 0.01745
-//        dy = 111.3 * (lat1 - lat2 )
-//        lat1, lat2, lon1, lon2: Latitude, Longitude in degrees
-//
-//        val R = 6371e3; // metres
-//        val φ1 = Math.toRadians(point1.latitude) // φ, λ in radians
-//        val φ2 = Math.toRadians(point2.latitude)
-//        val Δφ = Math.toRadians(point2.latitude - point1.latitude);
-//        val Δλ = Math.toRadians(point2.longitude - point1.longitude);
-//        val x = Δλ * Math.cos(Math.toRadians((φ1+φ2)/2));
-//        val y = Δφ;
-//        val d = Math.sqrt(x*x + y*y) * R;
-//
-//        const x = (λ2-λ1) * Math.cos((φ1+φ2)/2);
-//        const y = (φ2-φ1);
-//        const d = Math.sqrt(x*x + y*y) * R;
-//
-//        return d
-//        return d
-
         val lat = (point1.latitude + point2.latitude) / 2
         val dx = LATITUDE_DEGREE_METERS * cos(Math.toRadians(lat)) * (point1.longitude - point2.longitude)
         val dy = LATITUDE_DEGREE_METERS * (point1.latitude - point2.latitude)
