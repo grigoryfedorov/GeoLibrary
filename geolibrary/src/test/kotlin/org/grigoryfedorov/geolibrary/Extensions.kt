@@ -9,3 +9,5 @@ internal fun Point.shouldBe(expected: Point) {
     longitude shouldBe (expected.longitude plusOrMinus ANGLE_EQUAL_ACCURACY)
     elevation shouldBe (expected.elevation plusOrMinus ELEVATION_EQUAL_ACCURACY)
 }
+
+internal fun Double.format(digits: Int) = "%.${digits}f".format(this)

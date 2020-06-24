@@ -6,7 +6,7 @@ import org.grigoryfedorov.geolibrary.LATITUDE_SOUTH_BOUND
 import org.grigoryfedorov.geolibrary.LongitudeNormalizer
 import org.grigoryfedorov.geolibrary.Radius
 import org.grigoryfedorov.geolibrary.dto.Point
-import org.grigoryfedorov.geolibrary.exception.InvalidLatitudeParameterException
+import java.security.InvalidParameterException
 
 /**
  * Latitudes must always be in the range [-90, 90] (both inclusive), both for input and output.
@@ -29,7 +29,7 @@ class PointFactory(
         elevation: Radius
     ): Point {
         if (latitude !in LATITUDE_SOUTH_BOUND..LATITUDE_NORTH_BOUND) {
-            throw InvalidLatitudeParameterException("Latitudes must always be in the range " +
+            throw InvalidParameterException("Latitudes must always be in the range " +
                     "[$LATITUDE_SOUTH_BOUND, $LATITUDE_NORTH_BOUND] (both inclusive). Got $latitude")
         }
 

@@ -7,7 +7,7 @@ import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
 import org.grigoryfedorov.geolibrary.dto.Line
 import org.grigoryfedorov.geolibrary.dto.Point
-import org.grigoryfedorov.geolibrary.extentions.format
+import org.grigoryfedorov.geolibrary.format
 import kotlin.math.abs
 import kotlin.math.sqrt
 

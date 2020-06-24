@@ -3,10 +3,7 @@ package org.grigoryfedorov.geolibrary.dto
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.data.blocking.forAll
 import io.kotest.data.row
-import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
-import org.grigoryfedorov.geolibrary.ANGLE_EQUAL_ACCURACY
-import org.grigoryfedorov.geolibrary.ELEVATION_EQUAL_ACCURACY
 import org.grigoryfedorov.geolibrary.LatitudeNormalizer
 import org.grigoryfedorov.geolibrary.LongitudeNormalizer
 import org.grigoryfedorov.geolibrary.PointTranslator
