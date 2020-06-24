@@ -3,7 +3,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/grigoryfedorov/geolibrary/badge?s=b4c2035be1926f553c228b3f04dd0205ef3637d4)](https://www.codefactor.io/repository/github/grigoryfedorov/geolibrary)
 [![codecov](https://codecov.io/gh/grigoryfedorov/GeoLibrary/branch/master/graph/badge.svg?token=U2T0SEW73D)](https://codecov.io/gh/grigoryfedorov/GeoLibrary)
 
-GeoLibrary is a small demo projects implementing several classes for geospatial library.
+GeoLibrary is a small demo project fully written in Kotlin implementing several classes for geospatial library.
 
 # Build
 
