@@ -7,10 +7,10 @@ import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
 
 internal class LongitudeNormalizerTestShouldSpec : ShouldSpec({
-    fun checkNormalization(longitude: Double, expected: Double) {
+    fun checkNormalization(longitude: Double, expected: Double, needFlip : Boolean = false) {
         val longitudeNormalizer = LongitudeNormalizer()
-        val normalizedLongitude = longitudeNormalizer.normalizeLongitude(longitude, needFlip = false)
-        normalizedLongitude shouldBe (expected plusOrMinus 0.000001)
+        val normalizedLongitude = longitudeNormalizer.normalizeLongitude(longitude, needFlip = needFlip)
+        normalizedLongitude shouldBe (expected plusOrMinus ANGLE_EQUAL_ACCURACY)
     }
 
     should("return same values for correct range [-180;180>") {
@@ -212,6 +212,58 @@ internal class LongitudeNormalizerTestShouldSpec : ShouldSpec({
             )
         ) { longitude, expected ->
             checkNormalization(longitude, expected)
+        }
+    }
+
+    should("return normalized flipped longitude") {
+        forAll(
+            row(
+                0.0, -180.0
+            ),
+            row(
+                0.0001, -179.9999
+            ),
+            row(
+                -0.0001, 179.9999
+            ),
+            row(
+                60.0, -120.0
+            ),
+            row(
+                -60.0, 120.0
+            ),
+            row(
+                150.0, -30.0
+            ),
+            row(
+                -30.0, 150.0
+            ),
+            row(
+                -200.0, -20.0
+            ),
+            row(
+                -250.1245, -70.1245
+            ),
+            row(
+                -300.0, -120.0
+            ),
+            row(
+                -350.0, -170.0
+            ),
+            row(
+                200.0, 20.0
+            ),
+            row(
+                250.1245, 70.1245
+            ),
+            row(
+                300.0, 120.0
+            ),
+            row(
+                350.0, 170.0
+            )
+        ) { longitude, expected ->
+            checkNormalization(longitude, expected, needFlip = true)
         }
     }
 

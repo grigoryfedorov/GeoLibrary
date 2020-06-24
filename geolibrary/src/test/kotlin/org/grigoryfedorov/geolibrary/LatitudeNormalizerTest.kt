@@ -11,7 +11,7 @@ internal class LatitudeNormalizerTest : ShouldSpec({
     fun checkNormalization(latitude: Angle, expected: Angle, flipLongitude: Boolean) {
         val latitudeNormalizer = LatitudeNormalizer()
         val normalizedLatitude = latitudeNormalizer.normalizeLatitude(latitude)
-        normalizedLatitude.latitude shouldBe (expected plusOrMinus 0.000001)
+        normalizedLatitude.latitude shouldBe (expected plusOrMinus ANGLE_EQUAL_ACCURACY)
         normalizedLatitude.flipLongitude shouldBe flipLongitude
     }
 

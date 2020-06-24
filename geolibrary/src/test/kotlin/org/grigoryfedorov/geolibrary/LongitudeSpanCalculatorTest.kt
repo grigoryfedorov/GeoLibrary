@@ -14,7 +14,7 @@ internal class LongitudeSpanCalculatorTest: ShouldSpec({
             longitude1 = longitude1,
             longitude2 = longitude2
         )
-        span shouldBe (expectedSpan plusOrMinus 0.000001)
+        span shouldBe (expectedSpan plusOrMinus ANGLE_EQUAL_ACCURACY)
     }
 
     fun checkOrientedSpan(west: Angle, east: Angle, expectedSpan: Angle) {
@@ -23,7 +23,7 @@ internal class LongitudeSpanCalculatorTest: ShouldSpec({
             west = west,
             east = east
         )
-        span shouldBe (expectedSpan plusOrMinus 0.000001)
+        span shouldBe (expectedSpan plusOrMinus ANGLE_EQUAL_ACCURACY)
     }
 
 
