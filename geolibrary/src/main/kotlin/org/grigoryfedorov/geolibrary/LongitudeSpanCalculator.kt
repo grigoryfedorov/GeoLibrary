@@ -10,10 +10,7 @@ import kotlin.math.abs
  */
 class LongitudeSpanCalculator {
     fun calculateMinLongitudeSpan(longitude1: Angle, longitude2: Angle): Angle {
-        return if (
-            (longitude1 < 0 && longitude2 > 0)
-            || (longitude1 > 0 && longitude2 < 0)
-        ) {
+        return if (isLongitudesInDifferentHemispheres(longitude1, longitude2)) {
             minOf(
                 LONGITUDE_FULL_RANGE - abs(longitude1) - abs(longitude2),
                 abs(longitude1 - longitude2)
@@ -22,6 +19,12 @@ class LongitudeSpanCalculator {
             abs(longitude2 - longitude1)
         }
     }
+
+    private fun isLongitudesInDifferentHemispheres(
+        longitude1: Angle,
+        longitude2: Angle
+    ) = (longitude1 < 0 && longitude2 > 0
+                || longitude1 > 0 && longitude2 < 0)
 
     fun calculateOrientedLongitudeSpan(west: Angle, east: Angle): Angle {
         return if (east < west) {

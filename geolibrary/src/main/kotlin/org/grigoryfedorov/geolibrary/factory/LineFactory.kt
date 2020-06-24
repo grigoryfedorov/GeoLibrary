@@ -7,6 +7,10 @@ import org.grigoryfedorov.geolibrary.dto.Line
 import org.grigoryfedorov.geolibrary.dto.Point
 import java.security.InvalidParameterException
 
+/**
+ * Factory to create lines and check input params
+ * Lines only need to support a span of less than 180 degrees longitude and latitude.
+ */
 class LineFactory(
     private val latitudeSpanCalculator: LatitudeSpanCalculator,
     private val longitudeSpanCalculator: LongitudeSpanCalculator
@@ -55,5 +59,4 @@ class LineFactory(
             )
         }
     }
-
 }

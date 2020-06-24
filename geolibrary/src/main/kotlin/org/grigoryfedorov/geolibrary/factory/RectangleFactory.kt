@@ -1,6 +1,9 @@
 package org.grigoryfedorov.geolibrary.factory
 
-import org.grigoryfedorov.geolibrary.*
+import org.grigoryfedorov.geolibrary.Angle
+import org.grigoryfedorov.geolibrary.LatitudeSpanCalculator
+import org.grigoryfedorov.geolibrary.LongitudeSpanCalculator
+import org.grigoryfedorov.geolibrary.RECTANGLE_MAX_SPAN
 import org.grigoryfedorov.geolibrary.dto.Point
 import org.grigoryfedorov.geolibrary.dto.Rectangle
 import java.security.InvalidParameterException
