@@ -13,6 +13,9 @@ const val RADIUS_EQUATORIAL_A_METERS: Radius = 6378137.0
  */
 const val RADIUS_POLAR_B_METERS: Radius = 6356752.3142
 
+
+const val LATITUDE_DEGREE_METERS = 111300
+
 private const val ANGLE_360_DEGREES: Angle = 360.0
 private const val ANGLE_180_DEGREES: Angle = 180.0
 private const val ANGLE_90_DEGREES: Angle = 90.0
@@ -35,4 +38,4 @@ const val RECTANGLE_MAX_SPAN = MAX_SPAN
 
 const val DEGREE_TO_RADIANS_COEFFICIENT: Angle = Math.PI / ANGLE_180_DEGREES
 
-const val LATITUDE_DEGREE_METERS = 111300
+const val POLY_LINE_MIN_POINTS_COUNT = 2

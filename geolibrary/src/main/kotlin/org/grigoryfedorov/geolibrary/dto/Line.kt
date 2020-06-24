@@ -1,5 +1,7 @@
 package org.grigoryfedorov.geolibrary.dto
 
+import org.grigoryfedorov.geolibrary.DEFAULT_DISTANCE_CALCULATOR
+import org.grigoryfedorov.geolibrary.DEFAULT_POINT_TRANSLATOR
 import org.grigoryfedorov.geolibrary.Distance
 import org.grigoryfedorov.geolibrary.PointTranslator
 import org.grigoryfedorov.geolibrary.distance.DistanceCalculator
@@ -7,7 +9,6 @@ import org.grigoryfedorov.geolibrary.distance.DistanceCalculator
 /**
  * Represents a straight line between 2 Points
  * Constructed from any 2 Points.
- * Exposes its length (measured as a straight line).
  *
  * To simplify the math, distance calculations need only be accurate at short distances
  * and need not be accurate within 5 degrees of the poles.
@@ -19,11 +20,17 @@ class Line internal constructor(
     val point2: Point
 ) {
 
-    fun length(distanceCalculator: DistanceCalculator): Distance {
+    /**
+     * Exposes length (measured as a straight line).
+     */
+    fun length(distanceCalculator: DistanceCalculator = DEFAULT_DISTANCE_CALCULATOR): Distance {
         return distanceCalculator.calculateDistance(point1, point2)
     }
 
-    fun translate(vector: Vector, pointTranslator: PointTranslator): Line {
+    fun translate(
+        vector: Vector,
+        pointTranslator: PointTranslator = DEFAULT_POINT_TRANSLATOR
+    ): Line {
         return Line(
             point1 = point1.translate(vector, pointTranslator),
             point2 = point2.translate(vector, pointTranslator)

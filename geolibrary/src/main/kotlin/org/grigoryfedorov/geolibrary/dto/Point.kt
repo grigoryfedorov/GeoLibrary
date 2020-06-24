@@ -1,6 +1,7 @@
 package org.grigoryfedorov.geolibrary.dto
 
 import org.grigoryfedorov.geolibrary.Angle
+import org.grigoryfedorov.geolibrary.DEFAULT_POINT_TRANSLATOR
 import org.grigoryfedorov.geolibrary.PointTranslator
 import org.grigoryfedorov.geolibrary.Radius
 
@@ -19,7 +20,10 @@ class Point internal constructor(
     val elevation: Radius
 ) {
 
-    fun translate(vector: Vector, pointTranslator: PointTranslator): Point {
+    fun translate(
+        vector: Vector,
+        pointTranslator: PointTranslator = DEFAULT_POINT_TRANSLATOR
+    ): Point {
         return pointTranslator.translate(this, vector)
     }
 

@@ -5,6 +5,7 @@ import io.kotest.data.forAll
 import io.kotest.data.row
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import org.grigoryfedorov.geolibrary.DISTANCE_EQUAL_ACCURACY
@@ -36,6 +37,8 @@ internal class LineTest : ShouldSpec() {
 
                 val length = line.length(distanceCalculator)
                 length shouldBe (expected plusOrMinus DISTANCE_EQUAL_ACCURACY)
+
+                clearMocks(distanceCalculator)
             }
         }
 
@@ -66,6 +69,8 @@ internal class LineTest : ShouldSpec() {
                 val translated = line.translate(vector, pointTranslator)
                 translated.point1.shouldBe(expected.point1)
                 translated.point2.shouldBe(expected.point2)
+
+                clearMocks(pointTranslator)
             }
         }
     }

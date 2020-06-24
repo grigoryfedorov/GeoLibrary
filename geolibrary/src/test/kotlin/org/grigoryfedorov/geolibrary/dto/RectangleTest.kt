@@ -4,6 +4,7 @@ import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.data.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import org.grigoryfedorov.geolibrary.ContainedInRectangleCalculator
@@ -47,6 +48,8 @@ internal class RectangleTest : ShouldSpec() {
 
                 translated.southWest.shouldBe(expected.southWest)
                 translated.northEast.shouldBe(expected.northEast)
+
+                clearMocks(pointTranslator)
             }
         }
 
@@ -77,6 +80,8 @@ internal class RectangleTest : ShouldSpec() {
                 val contains = rectangle.contains(point, containedInRectangleCalculator)
 
                 contains shouldBe expected
+
+                clearMocks(containedInRectangleCalculator)
             }
         }
     }

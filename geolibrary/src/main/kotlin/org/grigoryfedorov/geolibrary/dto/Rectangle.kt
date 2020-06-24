@@ -1,14 +1,14 @@
 package org.grigoryfedorov.geolibrary.dto
 
 import org.grigoryfedorov.geolibrary.ContainedInRectangleCalculator
+import org.grigoryfedorov.geolibrary.DEFAULT_CONTAINED_IN_RECTANGLE_CALCULATOR
+import org.grigoryfedorov.geolibrary.DEFAULT_POINT_TRANSLATOR
 import org.grigoryfedorov.geolibrary.PointTranslator
 
 /**
  * Represents a rectangular area, defined by 2 corner Points.
  * Rectangles and Lines only need to support a span of less than 180 degrees longitude and latitude.
  * Constructed from 2 corner Points(South/West, North/East).
- * Exposes a way to determine if a Point is contained within the rectangle (elevation is
-disregarded in this case).
  */
 class Rectangle internal constructor(
     val southWest: Point,
@@ -16,18 +16,21 @@ class Rectangle internal constructor(
 ) {
 
     /**
-     * Exposes a way to determine if a Point is contained within the rectangle (elevation is
-     * disregarded in this case).
+     * Determine if a Point is contained within the rectangle
+     * (elevation is disregarded in this case).
      */
     fun contains(
         location: Point,
-        containedInRectangleCalculator: ContainedInRectangleCalculator
+        containedInRectangleCalculator: ContainedInRectangleCalculator = DEFAULT_CONTAINED_IN_RECTANGLE_CALCULATOR
     ): Boolean {
         return containedInRectangleCalculator.isPointContainedInRectangle(this, location)
     }
 
 
-    fun translate(vector: Vector, pointTranslator: PointTranslator): Rectangle {
+    fun translate(
+        vector: Vector,
+        pointTranslator: PointTranslator = DEFAULT_POINT_TRANSLATOR
+    ): Rectangle {
         return Rectangle(
             southWest = southWest.translate(vector, pointTranslator),
             northEast = northEast.translate(vector, pointTranslator)

@@ -3,7 +3,6 @@ package org.grigoryfedorov.geolibrary
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.data.forAll
 import io.kotest.data.row
-import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
 import org.grigoryfedorov.geolibrary.dto.Point
 import org.grigoryfedorov.geolibrary.dto.Vector

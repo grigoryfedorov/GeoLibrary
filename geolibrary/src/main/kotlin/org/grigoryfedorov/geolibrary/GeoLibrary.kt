@@ -1,23 +1,32 @@
 package org.grigoryfedorov.geolibrary
 
-import org.grigoryfedorov.geolibrary.distance.DistanceCalculator
-import org.grigoryfedorov.geolibrary.distance.PointOnLineFinder
+import org.grigoryfedorov.geolibrary.factory.LineFactory
 import org.grigoryfedorov.geolibrary.factory.PointFactory
 import org.grigoryfedorov.geolibrary.factory.PolyLineFactory
+import org.grigoryfedorov.geolibrary.factory.RectangleFactory
 
 /**
- * Should be main library class with configurations and factories
+ * Main library class, creates factories.
  */
-class GeoLibrary {
-    var distanceCalculator: DistanceCalculator = DEFAULT_DISTANCE_CALCULATOR
-    var pointOnLineFinder: PointOnLineFinder = DEFAULT_POINT_ON_LINE_FINDER
+class GeoLibrary(
+    private val latitudeSpanCalculator: LatitudeSpanCalculator = DEFAULT_LATITUDE_SPAN_CALCULATOR,
+    private val longitudeSpanCalculator: LongitudeSpanCalculator = DEFAULT_LONGITUDE_SPAN_CALCULATOR,
+    private val longitudeNormalizer: LongitudeNormalizer = DEFAULT_LONGITUDE_NORMALIZER
+) {
 
-    fun createDefaultPointFactory(): PointFactory {
-        val longitudeNormalizer = LongitudeNormalizer()
+    fun createPointFactory(): PointFactory {
         return PointFactory(longitudeNormalizer)
     }
 
-    fun createDefaultPolyLineFactory(): PolyLineFactory {
+    fun createPolyLineFactory(): PolyLineFactory {
         return PolyLineFactory()
+    }
+
+    fun createLineFactory(): LineFactory {
+        return LineFactory(latitudeSpanCalculator, longitudeSpanCalculator)
+    }
+
+    fun createRectangleFactory(): RectangleFactory {
+        return RectangleFactory(latitudeSpanCalculator, longitudeSpanCalculator)
     }
 }
