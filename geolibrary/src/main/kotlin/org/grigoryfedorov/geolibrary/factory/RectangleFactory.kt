@@ -1,19 +1,30 @@
 package org.grigoryfedorov.geolibrary.factory
 
-import org.grigoryfedorov.geolibrary.ANGLE_180_DEGREES
-import org.grigoryfedorov.geolibrary.ANGLE_360_DEGREES
+import org.grigoryfedorov.geolibrary.*
 import org.grigoryfedorov.geolibrary.dto.Point
 import org.grigoryfedorov.geolibrary.dto.Rectangle
 import java.security.InvalidParameterException
-import kotlin.math.abs
 
 /**
  * Factory to create rectangle with input params check
  */
-class RectangleFactory {
+class RectangleFactory(
+    private val latitudeSpanCalculator: LatitudeSpanCalculator,
+    private val longitudeSpanCalculator: LongitudeSpanCalculator
+) {
     fun createRectangle(southWest: Point, northEast: Point): Rectangle {
-        checkLatitudeOrThrow(southWest, northEast)
-        checkLongitudeOrThrow(northEast, southWest)
+        checkLatitudeOrientation(
+            south = southWest.latitude,
+            north = northEast.latitude
+        )
+        checkLatitudeSpan(
+            south = southWest.latitude,
+            north = northEast.latitude
+        )
+        checkLongitudeSpan(
+            west = southWest.longitude,
+            east = northEast.longitude
+        )
 
         return Rectangle(
             southWest = southWest,
@@ -21,44 +32,49 @@ class RectangleFactory {
         )
     }
 
-    private fun checkLongitudeOrThrow(
-        northEast: Point,
-        southWest: Point
+    private fun checkLatitudeOrientation(
+        south: Angle,
+        north: Angle
     ) {
-        val longitudeSpan = if (northEast.longitude < 0 && southWest.longitude > 0) {
-            ANGLE_360_DEGREES - abs(northEast.longitude) - southWest.longitude
-        } else {
-            northEast.longitude - southWest.longitude
-        }
-
-        if (longitudeSpan >= ANGLE_180_DEGREES) {
+        if (south > north) {
             throw InvalidParameterException(
-                "Longitude span is too big during rectangle creation. " +
-                        "West lon ${southWest.longitude} east lon ${northEast.longitude} " +
-                        "span $longitudeSpan " +
-                        "span limit $ANGLE_180_DEGREES"
+                "South bound latitude is greater than north during rectangle creation. " +
+                        "South $south north $north"
             )
         }
     }
 
-    private fun checkLatitudeOrThrow(
-        southWest: Point,
-        northEast: Point
+    private fun checkLatitudeSpan(
+        south: Angle,
+        north: Angle
     ) {
-        if (southWest.latitude > northEast.latitude) {
-            throw InvalidParameterException(
-                "South bound latitude is greater than north during rectangle creation. " +
-                        "South lat ${southWest.latitude} north lat ${northEast.latitude}"
-            )
-        }
+        val span = latitudeSpanCalculator.calculateLatitudeSpan(
+            latitude1 = south,
+            latitude2 = north
+        )
 
-        val latitudeSpan = northEast.latitude - southWest.latitude
-        if (latitudeSpan >= ANGLE_180_DEGREES) {
+        if (span >= RECTANGLE_MAX_SPAN) {
             throw InvalidParameterException(
                 "Latitude span is too big during rectangle creation. " +
-                        "South lat ${southWest.latitude} north lat ${northEast.latitude} " +
-                        "span $latitudeSpan " +
-                        "span limit $ANGLE_180_DEGREES"
+                        "South $south north $north " +
+                        "span $span " +
+                        "span limit $RECTANGLE_MAX_SPAN"
+            )
+        }
+    }
+
+    private fun checkLongitudeSpan(west: Angle, east: Angle) {
+        val span = longitudeSpanCalculator.calculateOrientedLongitudeSpan(
+            west = west,
+            east = east
+        )
+
+        if (span >= RECTANGLE_MAX_SPAN) {
+            throw InvalidParameterException(
+                "Longitude span is too big during rectangle creation. " +
+                        "West $west east $east " +
+                        "span $span " +
+                        "span limit $RECTANGLE_MAX_SPAN"
             )
         }
     }

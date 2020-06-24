@@ -14,14 +14,14 @@ class LatitudeNormalizer {
             )
         }
 
-        val reminder = latitude.rem(LONGITUDE_FULL_CIRCLE)
+        val reminder = latitude.rem(LATITUDE_ROUND_CIRCLE)
 
-        val normalizeLongitude = when {
-            reminder > LONGITUDE_EAST_BOUND -> {
-                reminder - LONGITUDE_FULL_CIRCLE
+        val circleNormalized = when {
+            reminder > LATITUDE_FULL_RANGE -> {
+                reminder - LATITUDE_ROUND_CIRCLE
             }
-            reminder < LONGITUDE_WEST_BOUND -> {
-                reminder + LONGITUDE_FULL_CIRCLE
+            reminder < -LATITUDE_FULL_RANGE -> {
+                reminder + LATITUDE_ROUND_CIRCLE
             }
             else -> {
                 reminder
@@ -29,22 +29,22 @@ class LatitudeNormalizer {
         }
 
         return when {
-            normalizeLongitude > LATITUDE_NORTH_BOUND -> {
+            circleNormalized > LATITUDE_NORTH_BOUND -> {
                 NormalizedLatitude(
-                        latitude = ANGLE_180_DEGREES - normalizeLongitude,
+                        latitude = LATITUDE_FULL_RANGE - circleNormalized,
                         flipLongitude = true
                 )
 
             }
-            normalizeLongitude < LATITUDE_SOUTH_BOUND -> {
+            circleNormalized < LATITUDE_SOUTH_BOUND -> {
                 NormalizedLatitude(
-                        latitude = -ANGLE_180_DEGREES - normalizeLongitude,
+                        latitude = -LATITUDE_FULL_RANGE - circleNormalized,
                         flipLongitude = true
                 )
             }
             else -> {
                 NormalizedLatitude(
-                        latitude = normalizeLongitude,
+                        latitude = circleNormalized,
                         flipLongitude = false
                 )
             }

@@ -13,9 +13,9 @@ class LongitudeNormalizer {
     fun normalizeLongitude(longitude: Angle, needFlip: Boolean): Angle {
         val flippedLongitude = if (needFlip) {
             if (longitude > 0) {
-                longitude - ANGLE_180_DEGREES
+                longitude - LONGITUDE_FLIP_RANGE
             } else {
-                longitude + ANGLE_180_DEGREES
+                longitude + LONGITUDE_FLIP_RANGE
             }
         } else {
             longitude
@@ -25,14 +25,14 @@ class LongitudeNormalizer {
             return flippedLongitude
         }
 
-        val reminder = flippedLongitude.rem(LONGITUDE_FULL_CIRCLE)
+        val reminder = flippedLongitude.rem(LONGITUDE_FULL_RANGE)
 
         return when {
             reminder >= LONGITUDE_EAST_BOUND -> {
-                reminder - LONGITUDE_FULL_CIRCLE
+                reminder - LONGITUDE_FULL_RANGE
             }
             reminder < LONGITUDE_WEST_BOUND -> {
-                reminder + LONGITUDE_FULL_CIRCLE
+                reminder + LONGITUDE_FULL_RANGE
             }
             else -> {
                 reminder
