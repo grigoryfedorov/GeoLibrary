@@ -8,10 +8,14 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import org.grigoryfedorov.geolibrary.PointTranslator
+import org.grigoryfedorov.geolibrary.distance.DistanceCalculator
+import org.grigoryfedorov.geolibrary.distance.PointOnLineFinder
 
 internal class PolyLineTest : ShouldSpec() {
 
     lateinit var pointTranslator: PointTranslator
+    lateinit var pointOnLineFinder: PointOnLineFinder
+    lateinit var distanceCalculator: DistanceCalculator
 
     lateinit var point1: Point
     lateinit var point2: Point
@@ -23,6 +27,8 @@ internal class PolyLineTest : ShouldSpec() {
     init {
         beforeTest {
             pointTranslator = mockk()
+            pointOnLineFinder = mockk()
+            distanceCalculator = mockk()
 
             point1 = Point(1.2323, 4.32523523, 523523.5235)
             point2 = Point(2.5235, 6.32523523, 4684.5235)
@@ -88,24 +94,55 @@ internal class PolyLineTest : ShouldSpec() {
                     val polyLineIter = polyline.points.iterator()
                     val expectedIter = expected.points.iterator()
 
-                    while(polyLineIter.hasNext()) {
+                    while (polyLineIter.hasNext()) {
                         every {
                             pointTranslator.translate(polyLineIter.next(), vector)
                         } returns expectedIter.next()
                     }
                 }
 
-               val translated = polyline.translate(vector, pointTranslator)
+                val translated = polyline.translate(vector, pointTranslator)
 
                 val translatedIter = translated.points.iterator()
                 val expectedIter = expected.points.iterator()
-                while(translatedIter.hasNext()) {
+                while (translatedIter.hasNext()) {
                     translatedIter.next().shouldBe(expectedIter.next())
                 }
 
                 clearMocks(pointTranslator)
             }
         }
+
+        should("find point on the polyline by distance") {
+
+            val polyLine = PolyLine(listOf(point1, point2, point3))
+            val distance = 100.0
+            val expected = point6
+            val length12 = 60.0
+
+            every {
+                pointOnLineFinder.findPointOnLineByDistance(Line(point1, point2), distance)
+            } returns null
+            every {
+                pointOnLineFinder.findPointOnLineByDistance(Line(point2, point3), distance - length12)
+            } returns expected
+
+            every {
+                distanceCalculator.calculateDistance(point1, point2)
+            } returns length12
+
+            val locationByDistance = polyLine.getLocationByDistance(
+                distance,
+                pointOnLineFinder,
+                distanceCalculator
+            )
+
+            locationByDistance.shouldBe(expected)
+
+            clearMocks(pointOnLineFinder)
+            clearMocks(distanceCalculator)
+        }
+
 
     }
 
