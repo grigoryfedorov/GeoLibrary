@@ -10,6 +10,12 @@ import org.grigoryfedorov.geolibrary.Radius
  * and a distance that specifies the change in elevation.
  * The purpose of Vector is to be able to get translated instances of Points, Lines, PolyLines and
  * Rectangles.
+ *
+ * @property northbound latitude translation towards North in degrees
+ * @property eastbound longitude translation towards East in degrees
+ * @property elevationBound elevation change, positive above Earth surface, negative - below
+ *
+ * @constructor use [org.grigoryfedorov.geolibrary.factory.VectorFactory] to create Vector
  */
 class Vector internal constructor(
     val northbound: Angle,

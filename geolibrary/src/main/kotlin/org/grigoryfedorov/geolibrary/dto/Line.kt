@@ -8,12 +8,11 @@ import org.grigoryfedorov.geolibrary.distance.DistanceCalculator
 
 /**
  * Represents a straight line between 2 Points
- * Constructed from any 2 Points.
  *
- * To simplify the math, distance calculations need only be accurate at short distances
- * and need not be accurate within 5 degrees of the poles.
+ * @property point1 first point, line has no direction
+ * @property point2 second point, line has no direction
  *
- * Rectangles and Lines only need to support a span of less than 180 degrees longitude and latitude.
+ * @constructor use [org.grigoryfedorov.geolibrary.factory.LineFactory] to create Line
  */
 class Line internal constructor(
     val point1: Point,
@@ -22,11 +21,23 @@ class Line internal constructor(
 
     /**
      * Exposes length (measured as a straight line).
+     * To simplify the math, distance calculations need only be accurate at short distances
+     * and need not be accurate within 5 degrees of the poles.
+     *
+     * @param distanceCalculator default or custom implementation of line distance calculation
      */
     fun length(distanceCalculator: DistanceCalculator = DEFAULT_DISTANCE_CALCULATOR): Distance {
         return distanceCalculator.calculateDistance(point1, point2)
     }
 
+    /**
+     * Translate line via translating points: vector directions are added to coordinates and normalized
+     * It is important, that geometrical size may change, because of coordinate system
+     *
+     * @param vector to make translation
+     * @param pointTranslator default or custom translator, which implements math
+     * @return translated copy on Line
+     */
     fun translate(
         vector: Vector,
         pointTranslator: PointTranslator = DEFAULT_POINT_TRANSLATOR

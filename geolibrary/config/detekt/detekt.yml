@@ -51,9 +51,9 @@ comments:
     searchInInnerObject: true
     searchInInnerInterface: true
   UndocumentedPublicFunction:
-    active: false
+    active: true
   UndocumentedPublicProperty:
-    active: false
+    active: true
 
 complexity:
   active: true

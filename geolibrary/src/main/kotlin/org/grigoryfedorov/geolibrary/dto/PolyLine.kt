@@ -11,7 +11,9 @@ import java.security.InvalidParameterException
 
 /**
  * Represents a segmented line between 2 or more Points
- * Constructed from an ordered collection of 2 or more Points.
+ *
+ * @property points - ordered collection of 2 or more Points
+ * @constructor use [org.grigoryfedorov.geolibrary.factory.PolyLineFactory] to create PolyLine
  */
 class PolyLine internal constructor(
     val points: Collection<Point>
@@ -19,6 +21,8 @@ class PolyLine internal constructor(
 
     /**
      * Get PolyLine as a list of lines
+     *
+     * @return list of PolyLine segments as Line
      */
     fun toLines(): List<Line> {
         return points.zipWithNext { point1, point2 ->
@@ -29,6 +33,11 @@ class PolyLine internal constructor(
     /**
      * Get a 3D location anywhere along the PolyLine
      * at a given a distance measured from the origin of the PolyLine.
+     *
+     * @param distance from origin of the PolyLine to searched locations, in meters
+     * @param pointInLineFinder default or custom implementations of point on line calculation
+     * @param distanceCalculator default or custom implementation of line distance calculation
+     * @return valid point if distance is less than PolyLine distance or null if point is outside the PolyLine
      */
     fun getLocationByDistance(
         distance: Distance,
@@ -53,7 +62,13 @@ class PolyLine internal constructor(
         return resultPoint
     }
 
-
+    /**
+     * Translate PolyLine by it's Points: vector directions are added to coordinates and normalized
+     *
+     * @param vector to make translation
+     * @param pointTranslator default or custom translator, which implements math
+     * @return translated copy on PolyLine
+     */
     fun translate(
         vector: Vector,
         pointTranslator: PointTranslator = DEFAULT_POINT_TRANSLATOR

@@ -7,12 +7,12 @@ import org.grigoryfedorov.geolibrary.Radius
 
 /**
  * Represents any location on (or above) Earth.
- * Constructed with a latitude, longitude and elevation (distance from WGS84 ellipsoid).
- * All coordinates are expressed as WGS84 latitude and longitude, in degrees
- * Latitudes must always be in the range [-90, 90] (both inclusive), both for input and output.
- * Latitudes outside this range are considered an error
- * Longitudes passed to this library (input) may be outside this range and are automatically
- * wrapped to the range by the library.
+ *
+ * @property latitude WGS84 latitude in degrees in range -90, 90 (both inclusive)
+ * @property longitude WGS84 longitude in degrees in range -180, 180 (left inclusive, right exclusive).
+ * @property elevation distance from WGS84 ellipsoid in meters, not restrictions to range,
+ * but large elevation can mage useless such calculations as distance between points
+ * @constructor use [org.grigoryfedorov.geolibrary.factory.PointFactory] to create Point
  */
 class Point internal constructor(
     val latitude: Angle,
@@ -20,6 +20,13 @@ class Point internal constructor(
     val elevation: Radius
 ) {
 
+    /**
+     * Translate Point: vector directions are added to coordinates and normalized
+     *
+     * @param vector to make translation
+     * @param pointTranslator default or custom translator, which implements math
+     * @return translated copy on Point
+     */
     fun translate(
         vector: Vector,
         pointTranslator: PointTranslator = DEFAULT_POINT_TRANSLATOR

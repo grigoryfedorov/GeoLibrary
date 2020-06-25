@@ -3,12 +3,17 @@ package org.grigoryfedorov.geolibrary
 import kotlin.math.abs
 
 /**
- * Calculate span (delta) in degrees for two longitudes.
- * Assume that both longitudes are already normalized in range
- * Span is always positive
- * The tricky case is when longitudes are in different hemispheres
+ * Calculates longitude span (coordinates delta)
  */
 class LongitudeSpanCalculator {
+
+    /**
+     * Calculate span (delta) in degrees for two longitudes.
+     * Assume that both longitudes are already normalized in range
+     * Span is always positive
+     * The tricky case is when longitudes are in different hemispheres
+     * Closest delta is selected
+     */
     fun calculateMinLongitudeSpan(longitude1: Angle, longitude2: Angle): Angle {
         return if (isLongitudesInDifferentHemispheres(longitude1, longitude2)) {
             minOf(
@@ -26,6 +31,13 @@ class LongitudeSpanCalculator {
     ) = (longitude1 < 0 && longitude2 > 0
                 || longitude1 > 0 && longitude2 < 0)
 
+    /**
+     * Calculate span (delta) in degrees for two longitudes.
+     * Assume that both longitudes are already normalized in range
+     * Span is always positive
+     * The tricky case is when longitudes are in different hemispheres
+     * Delta is calculated in order of east orientation
+     */
     fun calculateOrientedLongitudeSpan(west: Angle, east: Angle): Angle {
         return if (east < west) {
             LONGITUDE_FULL_RANGE - abs(west) - abs(east)

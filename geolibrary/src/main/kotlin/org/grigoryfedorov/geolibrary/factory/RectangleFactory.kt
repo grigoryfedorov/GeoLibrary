@@ -15,6 +15,14 @@ class RectangleFactory(
     private val latitudeSpanCalculator: LatitudeSpanCalculator,
     private val longitudeSpanCalculator: LongitudeSpanCalculator
 ) {
+
+    /**
+     * Create rectangle from corner Points or throw
+     *
+     * @throws InvalidParameterException if South is greater than North or span is too big.
+     * @see [RECTANGLE_MAX_SPAN] for current line span limit.
+     * Span is delta between latitude and longitude independently
+     */
     fun createRectangle(southWest: Point, northEast: Point): Rectangle {
         checkLatitudeOrientation(
             south = southWest.latitude,

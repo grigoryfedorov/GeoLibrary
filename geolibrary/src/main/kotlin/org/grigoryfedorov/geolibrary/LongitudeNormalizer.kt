@@ -10,6 +10,14 @@ package org.grigoryfedorov.geolibrary
  * https://stackoverflow.com/a/31125984
  */
 class LongitudeNormalizer {
+
+    /**
+     * Normalizes longitude to be in correct range and flip in to another hemisphere if needed
+     * @see [LONGITUDE_WEST_BOUND] and [LONGITUDE_EAST_BOUND]
+     * @param longitude Longitude to normalize in degrees
+     * @param needFlip if need to flip to another hemisphere
+     * @return normalized and flipped (if needed) longitude in degrees
+     */
     fun normalizeLongitude(longitude: Angle, needFlip: Boolean): Angle {
         val flippedLongitude = if (needFlip) {
             if (longitude > 0) {

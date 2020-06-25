@@ -16,6 +16,13 @@ class LineFactory(
     private val longitudeSpanCalculator: LongitudeSpanCalculator
 ) {
 
+    /**
+     * Create line from points or throw
+     *
+     * @throws InvalidParameterException if line span is too big
+     * @see [LINE_MAX_SPAN] for current line span limit.
+     * Span is delta between latitude and longitude independently
+     */
     fun createLine(point1: Point, point2: Point): Line {
         checkLatitudeSpan(point1, point2)
         checkLongitudeSpan(point1, point2)

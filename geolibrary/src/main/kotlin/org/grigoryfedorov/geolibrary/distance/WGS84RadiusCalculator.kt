@@ -12,8 +12,9 @@ import kotlin.math.sqrt
 
 
 /**
+ * Calculates Earth WGS84 radius for specific latitude
  *
- * https://planetcalc.com/7721/
+ * see https://planetcalc.com/7721/
  * https://en.wikipedia.org/wiki/Earth_radius#Geocentric_radius
  */
 class WGS84RadiusCalculator : RadiusCalculator {

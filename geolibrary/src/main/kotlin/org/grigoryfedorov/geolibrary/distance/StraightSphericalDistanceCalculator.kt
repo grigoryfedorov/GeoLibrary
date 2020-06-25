@@ -10,7 +10,9 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /**
- * https://en.wikipedia.org/wiki/Spherical_coordinate_system#Distance_in_Spherical_Coordinates
+ * Calculates strait distance using spherical coordinates formula
+ *
+ * See https://en.wikipedia.org/wiki/Spherical_coordinate_system#Distance_in_Spherical_Coordinates
  */
 class StraightSphericalDistanceCalculator(
     private val radiusCalculator: RadiusCalculator

@@ -12,6 +12,9 @@ import org.grigoryfedorov.geolibrary.dto.Vector
  */
 class VectorFactory {
 
+    /**
+     * Create Vector from directions, no checks made, does not throw
+     */
     fun createVector(
         latitude: Angle,
         longitude: Angle,

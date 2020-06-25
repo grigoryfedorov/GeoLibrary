@@ -9,6 +9,8 @@ import kotlin.math.sqrt
 
 /**
  * Use simplified calculations for distance. Suitable for short distances
+ *
+ * TODO: refactor [calculateDistance] and [findPointOnLineByDistance] extract shared logic
  */
 class SimpleStraitLineCalculator : DistanceCalculator, PointOnLineFinder {
     override fun calculateDistance(point1: Point, point2: Point): Distance {

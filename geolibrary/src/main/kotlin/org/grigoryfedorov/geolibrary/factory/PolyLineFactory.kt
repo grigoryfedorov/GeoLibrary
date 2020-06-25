@@ -10,15 +10,34 @@ import java.util.*
  * Creates polyline from different collections
  */
 class PolyLineFactory {
+
+    /**
+     * Create PolyLine from list of Points or throw
+     * List is copied
+     *
+     * @throws InvalidParameterException if points list is less than two Points
+     */
     fun createPolyLine(points: List<Point>): PolyLine {
         return createFromCollectionCopy(points)
     }
 
+    /**
+     * Create PolyLine from array of Points or throw
+     * Array is copied
+     *
+     * @throws InvalidParameterException if points array is less than two Points
+     */
     fun createPolyLine(points: Array<Point>): PolyLine {
         checkInputPointsCount(points.size)
         return PolyLine(points.toList())
     }
 
+    /**
+     * Create PolyLine from ordered set of Points or throw
+     * Set is copied
+     *
+     * @throws InvalidParameterException if points set is less than two Points
+     */
     fun createPolyLine(points: SortedSet<Point>): PolyLine {
         return createFromCollectionCopy(points)
     }

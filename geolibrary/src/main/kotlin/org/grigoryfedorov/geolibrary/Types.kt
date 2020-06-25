@@ -1,6 +1,10 @@
 package org.grigoryfedorov.geolibrary
 
-//https://stackoverflow.com/questions/385132/proper-best-type-for-storing-latitude-and-longitude?lq=1
+/**
+ * type aliases are used to make type changes easier if needed.
+ * For example Float can be used, because it probably enought to represent Earth's coordinates
+ * See also https://stackoverflow.com/questions/385132/proper-best-type-for-storing-latitude-and-longitude?lq=1
+ */
 
 /**
  * Coordinates angle, degrees. Used for latitude and longitude
